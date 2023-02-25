@@ -63,9 +63,12 @@
         public override string OnUsed(Player player, ItemStack itemStack)
         {
             var user = player.User;
-            user.Inventory.TryRemoveItem<FenceCenterItem>(user);
-            user.Inventory.TryAddItem<FenceEdgeItem>(user);
-            user.Player.InfoBox(new LocString("Chainlink Fence switched to Edge."));
+
+            if (user.Inventory.TryRemoveItem<FenceCenterItem>(user))
+            {
+                user.Inventory.TryAddItem<FenceEdgeItem>(user);
+                user.Player.InfoBox(new LocString("Chainlink Fence switched to Edge."));
+            }
             return base.OnUsed(player, itemStack);
         }
     }

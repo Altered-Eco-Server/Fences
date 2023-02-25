@@ -97,9 +97,12 @@ namespace Eco.Mods.TechTree
         public override string OnUsed(Player player, ItemStack itemStack)
         {
             var user = player.User;
-            user.Inventory.TryRemoveItem<FenceGateEdgeItem>(user);
-            user.Inventory.TryAddItem<FenceGateEdgeAltItem>(user);
-            user.Player.InfoBox(new LocString("Chainlink Gate switched to Right."));
+
+            if (user.Inventory.TryRemoveItem<FenceGateEdgeItem>(user))
+            {
+                user.Inventory.TryAddItem<FenceGateEdgeAltItem>(user);
+                user.Player.InfoBox(new LocString("Chainlink Gate switched to Right."));
+            }
             return base.OnUsed(player, itemStack);
         }
     }
